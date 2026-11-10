@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "language": "de",
+  "understanding": {
+    "summary": "Es entsteht eine Bestandsverwaltung für Ihre Telematik-Sensoren. Die Kundendienstbüros sind als Stammdaten hinterlegt, mit Adresse, Ansprechperson, Telefon und E-Mail. Jedem Sensor mit seiner Sensor-ID wird ein Kundendienstbüro und ein Versanddatum zugeordnet. Der Status ist „Noch verfügbar“ oder „Gepaired“; bei „Gepaired“ wird die Partner-ID erfasst. Das Vorbefüllen aller HUK-Coburg-Kundendienstbüros und das HUK-Branding gehören nicht zu diesem Plan und werden als offene Punkte benannt.",
+    "outside_users": [],
+    "roles": [
+      "Bestandsverwalter",
+      "Mitarbeitende im Kundendienst"
+    ],
+    "main_tasks": [
+      "Sensoren erfassen und einem Kundendienstbüro zuordnen",
+      "Versanddatum festhalten",
+      "Status auf gepaired setzen und Partner-ID eintragen",
+      "Bestand je Büro und Status im Blick behalten"
+    ],
+    "platform_roles": [
+      {
+        "persona": "Bestandsverwalter",
+        "role": "administrator",
+        "apps": [
+          "sensoren",
+          "kundendienstbueros"
+        ]
+      },
+      {
+        "persona": "Mitarbeitende im Kundendienst",
+        "role": "standard",
+        "apps": [
+          "sensoren",
+          "kundendienstbueros"
+        ]
+      }
+    ],
+    "wish_kind": "plain",
+    "wish_signals": []
+  },
+  "flows": [
+    {
+      "slug": "sensor-versenden",
+      "label": {
+        "de": "Sensor an Büro versenden",
+        "en": "Ship sensor to office"
+      },
+      "description": "Einen neuen Sensor mit seiner Sensor-ID erfassen, einem Kundendienstbüro zuordnen und das Versanddatum festhalten.",
+      "priority": "must",
+      "writes": [
+        {
+          "entity": "sensoren",
+          "op": "create",
+          "when": "always",
+          "fields": {
+            "sensor_id": "user",
+            "kundendienstbuero": "picked",
+            "versanddatum": "user",
+            "status": "fixed:noch_verfuegbar"
+          },
+          "multiple": false,
+          "needs": {}
+        }
+      ],
+      "required": [],
+      "brief": "# Flow `sensor-versenden` — Sensor an Büro versenden\nEinen neuen Sensor mit seiner Sensor-ID erfassen, einem Kundendienstbüro zuordnen und das Versanddatum festhalten.\n\n## Your hook — import it, never rebuild what it owns\n`import { useSensorVersendenFlow } from '@/lib/journey/flows/SensorVersenden';` — generated from the Schreibliste below. It OWNS the form(s), one record search per picked field (columns and filter from the plan) and the submit plan with every fixed and derived value. You compose: `flow.forms.<entity>` for <Bound>/<Field>, `{...flow.picks.<field>.select} {...flow.pick('<field>')}` (or `flow.pickMany` for a multi pick) for <EntitySelectStep>, `flow.validateStep(n)` in StepNav.onNext, `flow.submit` + `flow.formList` for SummaryStep/SuccessStep, `flow.reset()`; what the hook does not own reads through its door `flow.port` — availability `useOccupancy(flow.port, '<entity>', { resource })`, a count `useRecordCount(flow.port, …)` — never import servicePort next to the hook. Options: `steps` (field → step), `items` (how a hit reads, per pick: kundendienstbuero), `initial`, `messages`. The hook's docblock in .lane-context.md shows the exact call. Never import servicePort, useStepForm, useJourneySubmit, useRecordSearch or useDashboardData in this page — check-intents refuses a page that uses the hook and any of them.\n\n## Steps (in this order)\n1. Sensor-ID eingeben\n2. Kundendienstbüro aus der Liste wählen\n3. Versanddatum festlegen\n4. Speichern; der Sensor ist „Noch verfügbar“\n\n## Schreibliste — the ONLY writes this flow makes (the gate compares your plan steps with this list)\n- creates `sensoren`:\n    - `sensor_id`: the user enters it (bind it through the layer: form.field/…)\n    - `kundendienstbuero`: from the record the user picks in this flow\n    - `versanddatum`: the user enters it (bind it through the layer: form.field/…)\n    - `status`: fixed value `noch_verfuegbar` — set it in the plan step's values, never ask\n\n## Reads\n- `kundendienstbueros` columns bezeichnung, ort\n\n## Checks BEFORE the write (block the submit with the message when they fail)\n- unique (field=`sensoren.sensor_id`) — message: „Diese Sensor-ID ist bereits erfasst.“\n\n## Success page\n- shows: `sensoren.sensor_id`, `sensoren.kundendienstbuero`, `sensoren.versanddatum`, `sensoren.status`\n- next flows to offer: `sensor-pairen`\n\n## Never write these — another flow or a tool owns them\n- `sensoren.partner_id` (owner: intent `sensor-pairen`)\n"
+    },
+    {
+      "slug": "sensor-pairen",
+      "label": {
+        "de": "Sensor pairen",
+        "en": "Pair sensor"
+      },
+      "description": "Einen noch verfügbaren Sensor auswählen, auf „Gepaired“ setzen und die Partner-ID eintragen.",
+      "priority": "must",
+      "writes": [
+        {
+          "entity": "sensoren",
+          "op": "update",
+          "when": "always",
+          "fields": {
+            "status": "fixed:gepaired",
+            "partner_id": "user"
+          },
+          "multiple": false,
+          "needs": {}
+        }
+      ],
+      "required": [],
+      "brief": "# Flow `sensor-pairen` — Sensor pairen\nEinen noch verfügbaren Sensor auswählen, auf „Gepaired“ setzen und die Partner-ID eintragen.\n\n## Your hook — import it, never rebuild what it owns\n`import { useSensorPairenFlow } from '@/lib/journey/flows/SensorPairen';` — generated from the Schreibliste below. It OWNS the form(s), one record search per picked field (columns and filter from the plan) and the submit plan with every fixed and derived value. You compose: `flow.forms.<entity>` for <Bound>/<Field>, `{...flow.picks.<field>.select} {...flow.pick('<field>')}` (or `flow.pickMany` for a multi pick) for <EntitySelectStep>, `flow.validateStep(n)` in StepNav.onNext, `flow.submit` + `flow.formList` for SummaryStep/SuccessStep, `flow.reset()`; what the hook does not own reads through its door `flow.port` — availability `useOccupancy(flow.port, '<entity>', { resource })`, a count `useRecordCount(flow.port, …)` — never import servicePort next to the hook. Options: `steps` (field → step), `items` (how a hit reads, per pick), `initial`, `messages`. The hook's docblock in .lane-context.md shows the exact call. This flow CHANGES a record of `sensoren`: `{...flow.picks.sensoren.select} {...flow.pick('sensoren')}` picks it, the hook prefills the form with its current values and updates THAT record — never a create step, never a list from useDashboardData. Never import servicePort, useStepForm, useJourneySubmit, useRecordSearch or useDashboardData in this page — check-intents refuses a page that uses the hook and any of them.\n\n## Steps (in this order)\n1. Noch verfügbaren Sensor auswählen\n2. Partner-ID eingeben\n3. Status wird auf „Gepaired“ gesetzt und gespeichert\n\n## Schreibliste — the ONLY writes this flow makes (the gate compares your plan steps with this list)\n- updates `sensoren`:\n    - `status`: fixed value `gepaired` — set it in the plan step's values, never ask\n    - `partner_id`: the user enters it (bind it through the layer: form.field/…)\n\n## Reads\n- `sensoren` columns sensor_id, kundendienstbuero, versanddatum, status\n\n## Checks BEFORE the write (block the submit with the message when they fail)\n- required_context (field=`sensoren.partner_id`) — message: „Beim Pairen muss eine Partner-ID eingetragen werden.“\n\n## Success page\n- shows: `sensoren.sensor_id`, `sensoren.status`, `sensoren.partner_id`\n- next flows to offer: `sensor-versenden`\n\n## Never write these — another flow or a tool owns them\n- `sensoren.sensor_id` (owner: intent `sensor-versenden`)\n- `sensoren.kundendienstbuero` (owner: intent `sensor-versenden`)\n- `sensoren.versanddatum` (owner: intent `sensor-versenden`)\n"
+    }
+  ],
+  "public_pages": [],
+  "tools": [],
+  "covered_by_platform": [
+    {
+      "wish": "Übersicht der Sensoren je Kundendienstbüro und Status",
+      "feature": "distribution_view"
+    },
+    {
+      "wish": "Sensoren und Büros anlegen, ändern und suchen",
+      "feature": "record_form"
+    },
+    {
+      "wish": "Bestandsliste weitergeben oder auswerten",
+      "feature": "csv_json_export"
+    }
+  ],
+  "ownership": {
+    "sensoren": {
+      "sensor_id": "intent:sensor-versenden",
+      "kundendienstbuero": "intent:sensor-versenden",
+      "versanddatum": "intent:sensor-versenden",
+      "status": "intent:sensor-pairen",
+      "partner_id": "intent:sensor-pairen"
+    }
+  },
+  "dashboard": {
+    "focus": [
+      "Noch verfügbare Sensoren",
+      "Gepairte Sensoren",
+      "Sensoren je Kundendienstbüro"
+    ],
+    "hints": [
+      "Status „Noch verfügbar“ und „Gepaired“ als Kennzahlen zeigen",
+      "Zuletzt versendete Sensoren mit Versanddatum anzeigen"
+    ],
+    "writes": [],
+    "wishes": []
+  }
+}

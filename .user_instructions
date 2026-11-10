@@ -1,0 +1,7 @@
+Ich benötige ein Tool welches mir die Bestandsverwaltung unserer Telematik-Sensoren ermöglicht.
+Dabei sollen die verschiedenen Kundendienstbüros hinterlegt sein. Diesen sollen Sensoren zugeordnet werden können, welche eine ID haben. Ein Datum zu dem der Sensor versendet wurde soll ebenfalls zugeordnet werden können.
+
+Hinterlege direkt alle Kundendienstbüros der HUK-Coburg.
+Gestalte es im Branding der HUK.
+Zudem brauche ich einen Status: noch verfügbar, oder gepaired.
+Falls gepaired welcher Partner ID der Sensor zugeordnet wurde

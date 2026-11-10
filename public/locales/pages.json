@@ -1,0 +1,31 @@
+{
+  "pages": {
+    "en": {
+      "+{0} weitere — Suche verfeinern": "+{0} more — refine search",
+      "Alles dokumentiert": "All documented",
+      "Bereit zum Versand": "Ready to ship",
+      "Bestand aufgebraucht": "Stock depleted",
+      "Ersten Sensor erfassen": "Add first sensor",
+      "Gepaired": "Paired",
+      "Gepairte Sensoren mit Partner-ID": "Paired sensors with partner ID",
+      "Keine Sensoren für diese Auswahl.": "No sensors for this selection.",
+      "Lege deinen ersten Sensor an und ordne ihn einem Kundendienstbüro zu.": "Create your first sensor and assign it to a service office.",
+      "Noch kein Sensor versendet.": "No sensor shipped yet.",
+      "Noch keine Sensoren im Bestand — erfasse den ersten.": "No sensors in stock yet — add the first one.",
+      "Noch verfügbar": "Still available",
+      "Ohne Status": "No status",
+      "Ohne Versanddatum": "No shipping date",
+      "Pairen": "Pair",
+      "Sensor erfassen": "Add sensor",
+      "Sensor-ID, Büro oder Partner suchen": "Search sensor ID, office or partner",
+      "Sensoren je Kundendienstbüro": "Sensors per service office",
+      "Versanddatum nachtragen": "Add shipping date",
+      "Zuletzt versendet": "Last shipped",
+      "ein Büro": "an office",
+      "{0} % des Bestands im Einsatz": "{0}% of stock in use",
+      "{0} Sensoren warten auf ihren Einsatz — noch keiner wurde versendet.": "{0} sensors awaiting deployment — none shipped yet.",
+      "{0} Sensoren warten auf ihren Einsatz — zuletzt ging {1} an {2}.": "{0} sensors awaiting deployment — last one went to {2} on {1}."
+    }
+  },
+  "v": 1
+}

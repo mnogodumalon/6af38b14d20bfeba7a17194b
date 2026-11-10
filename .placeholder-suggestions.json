@@ -1,0 +1,18 @@
+{
+  "KundendienstbuerosDialog.tsx": {
+    "bezeichnung": "z. B. Büro Hamburg Nord",
+    "strasse": "z. B. Hafenstraße",
+    "hausnummer": "z. B. 12a",
+    "postleitzahl": "z. B. 20457",
+    "ort": "z. B. Hamburg",
+    "ansprechpartner_vorname": "z. B. Anna",
+    "ansprechpartner_nachname": "z. B. Müller",
+    "email": "z. B. buero@firma.de"
+  },
+  "SensorenDialog.tsx": {
+    "sensor_id": "z. B. SN-2026-001",
+    "kundendienstbuero": "Welches Kundendienstbüro?",
+    "versanddatum": "Wann wurde versendet?",
+    "partner_id": "z. B. PRT-4711"
+  }
+}

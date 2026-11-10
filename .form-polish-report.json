@@ -1,0 +1,18 @@
+{
+  "entities": {
+    "Kundendienstbüros": {
+      "placeholders_set": 8,
+      "defaults_keys": [],
+      "computed_keys": [],
+      "reason": "Reine Stammdaten eines Büros ohne numerische Felder, daher keine Formeln und keine Standardwerte."
+    },
+    "Sensoren": {
+      "placeholders_set": 4,
+      "defaults_keys": [
+        "status"
+      ],
+      "computed_keys": [],
+      "reason": "Keine Formeln, da es nur Stammdaten ohne numerische Felder oder Datumspaare gibt; Status startet mit 'Noch verfügbar'."
+    }
+  }
+}
