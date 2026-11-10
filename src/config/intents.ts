@@ -20,6 +20,7 @@
 import type { ComponentType } from 'react';
 
 // <custom:intent-imports>
+import { IconTruckDelivery, IconLink } from '@tabler/icons-react';
 // </custom:intent-imports>
 
 export interface IntentLink {
@@ -42,6 +43,8 @@ export interface IntentLink {
 
 export const INTENTS: IntentLink[] = [
   // <custom:intents>
+  { path: '/intents/sensor-versenden', label: { de: 'Sensor an Büro versenden', en: 'Ship sensor to office' }, icon: IconTruckDelivery, description: 'Einen neuen Sensor mit seiner Sensor-ID erfassen, einem Kundendienstbüro zuordnen und das Versanddatum festhalten.' },
+  { path: '/intents/sensor-pairen', label: { de: 'Sensor pairen', en: 'Pair sensor' }, icon: IconLink, description: 'Einen noch verfügbaren Sensor auswählen, auf „Gepaired“ setzen und die Partner-ID eintragen.' },
   // </custom:intents>
 ];
 
@@ -52,7 +55,7 @@ export const INTENTS: IntentLink[] = [
  * purpose — a scaffold update resets it to false (self-healing if Phase 2
  * never ran).
  */
-export const INTENTS_PENDING = true;
+export const INTENTS_PENDING = false;
 
 /**
  * When the Phase-1 bundle was deployed (ISO, set by the service together with

@@ -14,6 +14,9 @@ import { IntentPolicyLoader } from '@/components/IntentPolicyLoader';
 import IntentsAdmin from '@/pages/IntentsAdmin';
 import AppMap from '@/pages/AppMap';
 // <custom:imports>
+const IntentSensorVersendenPage = lazy(() => import('@/pages/intents/SensorVersendenPage'));
+import { DashboardSkeleton } from '@/components/DashboardStates';
+const IntentSensorPairenPage = lazy(() => import('@/pages/intents/SensorPairenPage'));
 // </custom:imports>
 
 // Lazy: public pages live outside <Layout> and only load on /#/public/:slug —
@@ -85,6 +88,8 @@ export default function App() {
                 <Route path="verwaltung/oeffentliche-seiten" element={<PublicPagesAdmin />} />
                 <Route path="verwaltung/oeffentliche-seiten/:slug/felder" element={<PublicPageFields />} />
                 {/* <custom:routes> */}
+                <Route path="intents/sensor-versenden" element={<Suspense fallback={<DashboardSkeleton />}><IntentSensorVersendenPage /></Suspense>} />
+                <Route path="intents/sensor-pairen" element={<Suspense fallback={<DashboardSkeleton />}><IntentSensorPairenPage /></Suspense>} />
                 {/* </custom:routes> */}
                 {/* An unknown hash (a bookmark from before a rebuild renamed the
                     flows, a mistyped link) must not be a blank page. */}
